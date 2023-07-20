@@ -50,12 +50,6 @@ const userController = require("./controller/userController");
 
 
 
-<<<<<<< HEAD:server.js
-app.listen(3001,()=>{
-    console.log(`server running at http://localhost:3001`);
+app.listen(3000,()=>{
+    console.log(`server running at http://localhost:3000`);
 })
-=======
-app.listen(port,()=>{
-    console.log(`server running at http://localhost:${port}`);
-})
->>>>>>> 2e92956e3203dee95b49d2073bba8d7a023d4731:index.js
