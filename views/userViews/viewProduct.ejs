@@ -140,6 +140,7 @@ function changeImage(image1){
         .then(response=> response.json())
         .then(data=>{
             console.log(data);
+            
             if(data == "exists"){
                 //document.getElementById("errorr").innerHTML = "already exists";
                 showToast('already exists!', 'success');

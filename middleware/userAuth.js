@@ -62,7 +62,7 @@ const loginOTPAuth = async (req, res, next) => {
           next();
         }
       } else {
-        res.render("registerUser", { message: "Register Now! " });
+        res.render("registerUser", { message: "Register Now " });
       }
     }
   
@@ -106,6 +106,7 @@ const uservalidation = async (req,res,next)=>{
     const userData = await User.findOne({ email: req.body.email });
     if (userData) {
       if (userData.isBlocked) {
+        req.session.userId='';
         const message = "You are Blocked!!!";
         res.render("loginUser",{message});
       } else {
@@ -114,6 +115,7 @@ const uservalidation = async (req,res,next)=>{
       }
     } else {
       const message = "Email not registered";
+
       res.render("loginUser",{message});
     }
   } catch (err) {
@@ -136,7 +138,23 @@ const isBlocked = async (req,res,next)=>{
   const id = req.session.userId;
   const userData = await User.findOne({_id:id});
   if(userData.isBlocked){
+    req.session.userId='';
     res.render('loginUser',{message: "You're Blocked!!!"})
+   // res.redirect('/')
+  } else{
+    next();
+  }
+
+};
+
+const isBlockedApi = async (req,res,next)=>{
+
+  const id = req.session.userId;
+  const userData = await User.findOne({_id:id});
+  if(userData.isBlocked){
+    req.session.userId='';
+    // res.render('loginUser',{message: "You're Blocked!!!"})
+    res.json('blocked')
   } else{
     next();
   }
@@ -161,6 +179,7 @@ module.exports = {
   logged,
   uservalidation,
   otp,
-  isBlocked
+  isBlocked,
+  isBlockedApi
   // resetAuth
 };

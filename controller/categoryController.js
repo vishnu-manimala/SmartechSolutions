@@ -24,13 +24,11 @@ const loadAddCategory = async (req, res) => {
 
 const addCategory = async (req, res) => {
   try {
-    
     const categoryData = await Category.find({});
     const pattern = categoryData.map(data => data.categoryName).join('|');
         const regex = new RegExp(pattern,'i');
         const input = req.body.category_name;
         if(regex.test(input)){
-          console.log("true")
           res.render('add_category',{message:"category already exist"})
         }else{
           const category = new Category({

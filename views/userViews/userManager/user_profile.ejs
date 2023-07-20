@@ -391,6 +391,9 @@ const croppedImageInput = document.getElementById('profilePictureInput');
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
+                    if (stock === "blocked") {
+                            window.location.href = '/login'
+                    }
                     if (data) {
                         location.reload();
                     } else {

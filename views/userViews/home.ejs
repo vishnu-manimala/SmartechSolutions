@@ -290,7 +290,9 @@ function fetchBag(url,id){
        .then(response=> response.json())
        .then(data=>{
            console.log(data);
-           if(data == "exists"){
+           if (data === "blocked") {
+            window.location.href = '/login'
+          }else if(data == "exists"){
                //document.getElementById("errorr").innerHTML = "already exists";
                showToast('already exists!', 'success');
            } else if(data == "login"){

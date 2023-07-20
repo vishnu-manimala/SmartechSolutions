@@ -609,7 +609,9 @@
                     .then(response => response.json())
                     .then(stock => {
                         console.log(stock)
-                        if (stock === "outofstock") {
+                        if (stock === "blocked") {
+                            window.location.href = '/login'
+                        } else if (stock === "outofstock") {
                             showToast("Sorry! product Out of stock!!!")
                             window.location.href = `/kart`;
                         } else {

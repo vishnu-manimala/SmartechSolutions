@@ -160,7 +160,7 @@ const securePassword = async (password) => {
                     .create({
                       body: loginKey,
                       to: `+91${req.body.phoneNumber}`, // Text your number
-                      from: "+1 6185076078", // From a valid Twilio number
+                      from: "+16185076078", // From a valid Twilio number
                     })
                     .then((message) => {
                       //console.log(message);

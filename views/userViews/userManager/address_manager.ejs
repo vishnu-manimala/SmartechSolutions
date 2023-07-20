@@ -401,6 +401,9 @@
         .then(response => response.json())
                 .then(data => {
                     console.log(data);
+                    if (data === "blocked") {
+                            window.location.href = '/login'
+                    }
                     if (data) {
                         location.reload();
                     } else {
@@ -422,6 +425,10 @@ function deleteAddress(id){
     fetch('/api/deleteAddress',options)
     .then(response=>response.json())
     .then(data=>{
+        
+        if (data === "blocked") {
+            window.location.href = '/login'
+        }
         console.log(data)
         if(data){
             location.reload()

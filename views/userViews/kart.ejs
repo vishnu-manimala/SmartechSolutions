@@ -168,7 +168,10 @@ function fetchQuantity(proId,cartId,count){
     .then(response => response.json())
     .then(data => {
       console.log(data);
-      if(data === "QuantityExceeded"){
+      if (stock === "blocked") {
+          window.location.href = '/login'
+      }else if(data === "QuantityExceeded"){
+      
         // document.getElementById('errorrQ').innerHTML= data;
         showToast(data,"warning")
 

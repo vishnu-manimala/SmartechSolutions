@@ -70,10 +70,10 @@ userRoutes.post("/home/page",userProductsController.loadFilterpagination)
 
 
 //add to bag  *****************  add to bag Routes  ***************
-userRoutes.post('/product/api/addtoBag',userAuth.isLogged,userAuth.isBlocked,userProductsController.addToBag);
+userRoutes.post('/product/api/addtoBag',userAuth.isLogged,userAuth.isBlockedApi,userProductsController.addToBag);
 
 //add to wishlist *****************  add to wishlist Routes  ***************
-userRoutes.post('/product/api/addtoWishlist',userAuth.isLogged,userAuth.isBlocked,userProductsController.addToWishlist);
+userRoutes.post('/product/api/addtoWishlist',userAuth.isLogged,userAuth.isBlockedApi,userProductsController.addToWishlist);
 
 
 // cart   *****************  cart Routes  ***************
@@ -89,7 +89,7 @@ userRoutes.post('/kart/ckeckout/order',userAuth.isLogged,userAuth.isBlocked,user
 
 //load wishlist  
 userRoutes.get('/wishlist',userAuth.isLogged,userAuth.isBlocked,userProductsController.loadWishlist); 
-userRoutes.post('/api/delete',userAuth.isLogged,userAuth.isBlocked,userProductsController.deleteWishlist);
+userRoutes.post('/api/delete',userAuth.isLogged,userAuth.isBlockedApi,userProductsController.deleteWishlist);
 
 //invoice 
 userRoutes.get('/invoice',userController.orderInvoice)
@@ -104,13 +104,13 @@ userRoutes.post('/profile/photoUpload',userAuth.isLogged,userAuth.isBlocked, upl
 userRoutes.get('/oreder/cancelled',userAuth.isLogged,userAuth.isBlocked, userProfileController.loadcancelmsg)
 
 //api 
-userRoutes.post('/api/update',userAuth.isLogged,userAuth.isBlocked,api.updateProfildata);
-userRoutes.post('/api/updateAddress',userAuth.isLogged,userAuth.isBlocked,api.updateAddress);
-userRoutes.post('/api/deleteAddress',userAuth.isLogged,userAuth.isBlocked,api.deleteAddress);
-userRoutes.post('/api/saveOrder',userAuth.isLogged,userAuth.isBlocked,api.saveOrder);
-userRoutes.post('/api/saveOrderUpi',userAuth.isLogged,userAuth.isBlocked,api.saveOrderUpi);
-userRoutes.post('/api/updateQuantity',userAuth.isLogged,userAuth.isBlocked,api.updateQuantity);
-userRoutes.post('/api/checkQuantity',userAuth.isLogged,userAuth.isBlocked,api.checkQuantity)
+userRoutes.post('/api/update',userAuth.isLogged,userAuth.isBlockedApi,api.updateProfildata);
+userRoutes.post('/api/updateAddress',userAuth.isLogged,userAuth.isBlockedApi,api.updateAddress);
+userRoutes.post('/api/deleteAddress',userAuth.isLogged,userAuth.isBlockedApi,api.deleteAddress);
+userRoutes.post('/api/saveOrder',userAuth.isLogged,userAuth.isBlockedApi,api.saveOrder);
+userRoutes.post('/api/saveOrderUpi',userAuth.isLogged,userAuth.isBlockedApi,api.saveOrderUpi);
+userRoutes.post('/api/updateQuantity',userAuth.isLogged,userAuth.isBlockedApi,api.updateQuantity);
+userRoutes.post('/api/checkQuantity',userAuth.isLogged,userAuth.isBlockedApi,api.checkQuantity)
 //logout
 userRoutes.post("/logout", userAuth.logged, userController.logoutUser);
 
