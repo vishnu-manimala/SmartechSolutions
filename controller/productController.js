@@ -96,6 +96,7 @@ const addproduct = async (req, res) => {
 const loadEditProducts = async (req, res) => {
   try {
     const id = req.query.id;
+    console.log(id)
     const data = await Product.find({ _id: id });
     const categoryData = await Category.find({ isAvailable: true });
 
@@ -129,7 +130,8 @@ const deleteImage = async (req, res) => {
         console.log(err);
       }
     });
-    res.redirect("/admin/products/edit_products");
+    console.log(data[0]._id)
+    res.redirect(`/admin/products/edit_products?id=${data[0]._id}`);
   } catch (err) {
     console.log("in delete imGE:", err.message);
   }

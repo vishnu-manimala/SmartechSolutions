@@ -70,10 +70,10 @@ userRoutes.post("/home/page",userProductsController.loadFilterpagination)
 
 
 //add to bag  *****************  add to bag Routes  ***************
-userRoutes.post('/product/api/addtoBag',userAuth.isLogged,userAuth.isBlockedApi,userProductsController.addToBag);
+userRoutes.post('/product/api/addtoBag',userAuth.isLoged,userAuth.isBlockedApi,userProductsController.addToBag);
 
 //add to wishlist *****************  add to wishlist Routes  ***************
-userRoutes.post('/product/api/addtoWishlist',userAuth.isLogged,userAuth.isBlockedApi,userProductsController.addToWishlist);
+userRoutes.post('/product/api/addtoWishlist',userAuth.isLoged,userAuth.isBlockedApi,userProductsController.addToWishlist);
 
 
 // cart   *****************  cart Routes  ***************

@@ -147,6 +147,16 @@ const isBlocked = async (req,res,next)=>{
 
 };
 
+const isLoged = async (req,res,next)=>{
+
+  if(req.session.userId){
+    next()
+  }else{
+    res.send(JSON.stringify("login"))
+  }
+
+};
+
 const isBlockedApi = async (req,res,next)=>{
 
   const id = req.session.userId;
@@ -180,6 +190,7 @@ module.exports = {
   uservalidation,
   otp,
   isBlocked,
-  isBlockedApi
+  isBlockedApi,
+  isLoged
   // resetAuth
 };

@@ -333,6 +333,7 @@ const securePassword = async (password) => {
                   });
               } catch (err) {
                 console.log(err.message);
+                res.render("registerUser", { message: err.message });
               }
               setTimeout(() => {
                 req.app.locals.OTP = "";

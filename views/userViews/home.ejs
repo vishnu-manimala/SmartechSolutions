@@ -78,7 +78,7 @@
             <% data.forEach((data) => { %>
               <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="card mb-4 justify-content-center">
-                 <a href="/product/<%= data._id %>"> <img src=" ../../productImages/<%= data.image[0] %>" class="card-img-top align-self-center p-lg-2" alt="image" style="height: 300px;width: 300px;" ></a>
+                 <a href="/product/<%= data._id %>"> <img src=" ../../productImages/<%= data.image[0] %>" class="card-img-top align-self-center p-lg-2 col-md-12 col-sm-4 " alt="image" style="height: 300px;width: 300px;" ></a>
                   <div class="card-body">
                     <%if(data.brand){ %>
                       <p class=" card-title"><%= data.brand %> </p>
