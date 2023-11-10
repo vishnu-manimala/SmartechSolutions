@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 module.exports = async(req, res)=>{
     try{
-        await mongoose.connect('mongodb://0.0.0.0:27017/Ayra',{
+        await mongoose.connect('mongodb://0.0.0.0:27017/smartech',{
             useNewUrlParser: true,
             useUnifiedTopology: true,
         }).then(()=>{

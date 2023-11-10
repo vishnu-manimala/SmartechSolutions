@@ -1,0 +1,243 @@
+<%- include('./layouts/headerUser.ejs') %>
+<div class="modal" tabindex="-1" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTittle">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="modalMessage">Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeModal()">OK</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="container-fluid mt-lg-2">
+    <div class="row justify-content-center m-1 mb-3">
+      <div class="col-md-12">
+        <div class="mt-2">
+          <div class="container">
+            <div class="row d-flex justify-content-around">
+              <div class="col-12 col-md-8">
+                <div class="card mt-4">
+                  <div class="card-body p-5">
+                  <h5 class="card-title text-center pb-4 ">Daily Transaction</h5>
+                  <form class="row g-3 p-2 " id="transaction" action="/daily.transaction" method="post">
+                    <div class="col-md-6">
+                      <label for="transactionType" class="form-label">Transaction IN/OUT :</label>
+                      <select class="form-select" name="transactionType" aria-label="Default select example"
+                        id="transactionType" required onchange="isType('transactionType')">
+                        <option value="" selected>Select transaction type</option>
+                        <option value="IN">IN</option>
+                        <option value="OUT">OUT</option>
+                      </select>
+                      <span id="transactionTypeerr" class="text-danger  "></span>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="transactionDate" class="form-label">Transaction Date</label>
+                      <input type="date" name="transactionDate" class="form-control" id="transactionDate" required onchange="isType('transactionDate')">
+                      <span id="transactionDateerr" class="text-danger  "></span>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="taxBill" class="form-label">Tax bill? :</label>
+                      <select class="form-select" name="taxBill" aria-label="Default select example" id="taxBill"
+                        required onchange="isType('taxBill')">
+                        <option selected>Tax bill?</option>
+                        <option value="YES">YES</option>
+                        <option value="NO">NO</option>
+                      </select>
+                      <span id="taxBillerr" class="text-danger  "></span>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="transactionAmount" class="form-label">Transaction Amount</label>
+                      <input type="number" name="transactionAmount" class="form-control" id="transactionAmount"
+                        required onchange="isType('transactionAmount')">
+                        <span id="transactionAmounterr" class="text-danger  "></span>
+                    </div>
+                    <div class="col-12">
+                      <label for="remarks" class="form-label">Remarks</label>
+                      <textarea class="form-control" name="remarks" aria-label="With textarea" id="remarks"></textarea>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="givenBy" class="form-label">Given By:</label>
+                      <input list="givenByoptions" class="form-control" id="givenBy" name="givenBy" required onchange="isType('givenBy')" />
+                      <datalist id="givenByoptions">
+                     
+                      </datalist>
+                      <span id="givenByerr" class="text-danger  "></span>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="receivedBy" class="form-label">Received By :</label>
+                      <input list="receivedByoptions" class="form-control" id="receivedBy" name="receivedBy" required onchange="isType('receivedBy')" />
+                      <datalist id="receivedByoptions">
+                        
+                      </datalist>
+                      <span id="receivedByerr" class="text-danger  "></span>
+                    </div>
+                    <div class="col-12">
+                      <label for="agreement" class="form-label">Agreement </label>
+                      <input list="agreementoptions" class="form-control" id="agreement" name="agreement" required  onchange="isType('agreement')" />
+                      <datalist id="agreementoptions">
+                     
+                      </datalist>
+                      <span id="agreementerr" class="text-danger  "></span>
+                    </div>
+                    <span id="errMessage" class="text-danger "></span>
+                    <div class="col-12">
+                      <button type="submit" class="btn btn-primary">Sign in</button>
+                    </div>
+                    <span id="err" class="text-danger  "></span>
+                  </form>
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+ document.addEventListener('DOMContentLoaded',function() {
+  const options ={}
+
+        console.log("options",options)
+        const url = '/formDatas';
+        fetch('/formDatas')
+        .then(response=>response.json())
+        .then(responseData=>{
+          console.log(responseData)
+          
+          populateDatalist(responseData.data.givenBy.slice(1),'givenByoptions')
+          populateDatalist(responseData.data.givenBy.slice(1),'receivedByoptions')
+          populateDatalist(responseData.data.agreement.slice(1),'agreementoptions')
+        })
+ })
+    
+ function populateDatalist(optionsArray,id) {
+  console.log(id,optionsArray);
+    const datalist = document.getElementById(id);
+
+    // Clear existing options
+    datalist.innerHTML = "";
+   
+    // Add new options
+    optionsArray.forEach(optionValue => {
+      const option = document.createElement("option");
+      option.value = optionValue;
+      datalist.appendChild(option);
+    });
+  }
+
+function isType(id){
+  const type = document.getElementById(id);
+  const err = id+"err";
+  console.log(type.value,id);
+  if(!type.value){
+    document.getElementById(err).innerHTML = 'Transaction type required';
+    type.style.borderColor = 'red';
+  }else{
+    document.getElementById(err).innerHTML = '';
+    type.style.borderColor = 'green';
+  }
+}
+
+document.getElementById('transaction').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevents the form from submitting in the traditional way
+      console.log('Name:', event.target.transactionType);
+      let formData = {};
+      formData.transactionType = event.target.transactionType.value;
+      formData.transactionDate = event.target.transactionDate.value
+      formData.taxBill = event.target.taxBill.value;
+      formData.transactionAmount =event.target.transactionAmount.value;
+      formData.remarks = event.target.remarks.value;
+      formData.givenBy = event.target.givenBy.value;
+      formData.receivedBy = event.target.receivedBy.value;
+      formData.agreement = event.target.agreement.value;
+
+      if(transactionType && transactionDate && taxBill && transactionAmount && givenBy && receivedBy && agreement){
+        console.log("in true")
+        const options = { method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ data: formData })}
+
+        console.log("options",options)
+        const url = '/daily.transaction';
+        fetch(url,options)
+        .then(response => response.json())
+        .then(data => {
+          console.log("fetch",data);
+          if(data === "success"){
+            
+            window.location.href = '/bulk';
+            event.target.transactionType.value = "";
+            event.target.transactionDate.value = "";
+            event.target.taxBill.value = "";
+            event.target.transactionAmount.value = "";
+            event.target.remarks.value = "";
+            event.target.givenBy.value = "";
+            event.target.receivedBy.value = "";
+            event.target.agreement.value = "";
+            showModal("Transaction Successfull","Succcess");
+          }else{
+            event.target.transactionType.value = "";
+            event.target.transactionDate.value = "";
+            event.target.taxBill.value = "";
+            event.target.transactionAmount.value = "";
+            event.target.remarks.value = "";
+            event.target.givenBy.value = "";
+            event.target.receivedBy.value = "";
+            event.target.agreement.value = "";
+            showModal("Something went wrong","Error!");
+            //document.getElementById('errMessage').innerHTML = "Something went wrong!!!";
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      }else{
+        document.getElementById('err').innerHTML = "All fields required!"
+        return false;
+      }
+    });
+    // Get the modal element
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("openModalBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+function showModal(message,tittle) {
+  document.getElementById('modalTittle').innerHTML = tittle;
+  document.getElementById('modalMessage').innerHTML = message;
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  document.getElementById('modalTittle').innerHTML = "";
+  document.getElementById('modalMessage').innerHTML = "";
+  modal.style.display = "none";
+}
+function closeModal(){
+ 
+  modal.style.display = "none";
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+  </script>
+  </body></html>

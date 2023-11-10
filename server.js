@@ -7,7 +7,9 @@ const config = require("./config/config");
 const path = require('path');
 require('dotenv').config();
 connect();
+const cors = require('cors');
 
+app.use(cors());
 const port = process.env.PORT;
 
 app.use(express.json());
@@ -34,7 +36,6 @@ app.use('/public',express.static(path.join(__dirname, './public')));
 app.use('/productImages', express.static(path.resolve(__dirname, 'productImages')));
 
 app.use('/', require('./router/userRoutes'));//for user  side requests
-app.use('/admin',require('./router/adminRoutes'));//for admin side requests
 
 app.get('*', (req, res)=>{
     res.status(404).render('404')
@@ -50,6 +51,6 @@ const userController = require("./controller/userController");
 
 
 
-app.listen(3001,()=>{
-    console.log(`server running at http://localhost:3001`);
+app.listen(3006,()=>{
+    console.log(`server running at http://localhost:3006`);
 })
