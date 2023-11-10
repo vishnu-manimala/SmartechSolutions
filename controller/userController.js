@@ -209,6 +209,13 @@ const saveDailyTransaction = async(req,res)=>{
   res.json("success");
 }
 
+const getAccounts = async(req,res)=>{
+  try{
+    res.status(200).render('accounts');
+  }catch(err){
+    console.log(err);
+  }
+}
 module.exports = {
   logoutUser,
   loadPasswordLogin,
@@ -217,5 +224,6 @@ module.exports = {
   loadBulk,
   loadDailyTransaction,
   saveDailyTransaction,
-  fetchDatas
+  fetchDatas,
+  getAccounts
 };

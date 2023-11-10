@@ -44,7 +44,7 @@ const userController = require("../controller/userController");
     userRoutes.get('/daily.transaction',authMiddlewares.isLoggedIn,userController.loadDailyTransaction);
     userRoutes.post('/daily.transaction',authMiddlewares.isLoggedIn,userController.saveDailyTransaction);
     userRoutes.get('/formDatas',authMiddlewares.isLoggedIn,userController.fetchDatas);
-    
+    userRoutes.get('/accounts',authMiddlewares.isLoggedIn,userController.getAccounts);
 
 
 
