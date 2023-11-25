@@ -11,7 +11,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeModal()">OK</button>
-        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+       
       </div>
     </div>
   </div>
@@ -87,8 +87,8 @@
                       <span id="agreementerr" class="text-danger  "></span>
                     </div>
                     <span id="errMessage" class="text-danger "></span>
-                    <div class="col-12">
-                      <button type="submit" class="btn btn-primary">Sign in</button>
+                    <div class="col-12 text-center ">
+                      <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                     <span id="err" class="text-danger  "></span>
                   </form>
@@ -102,10 +102,12 @@
     </div>
   </div>
   <script>
+
+    let username = "";
  document.addEventListener('DOMContentLoaded',function() {
   const options ={}
-
-        console.log("options",options)
+        username = '<%= username %>';
+        console.log("username",username)
         const url = '/formDatas';
         fetch('/formDatas')
         .then(response=>response.json())
@@ -143,6 +145,21 @@ function isType(id){
   }else{
     document.getElementById(err).innerHTML = '';
     type.style.borderColor = 'green';
+    if(type.value === "IN"){
+      const givenByTag = document.getElementById('givenBy');
+      givenByTag.disabled = false;
+      givenByTag.value = "";
+      const recievedByTag = document.getElementById('receivedBy');
+      recievedByTag.disabled = true;
+      recievedByTag.value = username;
+    }else if(type.value === "OUT"){
+      const recievedByTag = document.getElementById('receivedBy');
+      recievedByTag.disabled = false;
+      recievedByTag.value = "";
+      const givenByTag = document.getElementById('givenBy');
+      givenByTag.disabled = true;
+      givenByTag.value = username;
+    }
   }
 }
 

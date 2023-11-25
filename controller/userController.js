@@ -147,7 +147,7 @@ const loadDailyTransaction = async(req,res) =>{
   console.log("responded");
 
   try{
-    return res.status(200).render("dailyTransaction");
+    return res.status(200).render("dailyTransaction",{username:req.session.username});
   }
   catch(err){
     console.log(err);
@@ -196,7 +196,7 @@ const fetchDatas = async(req,res)=>{
 }
 
 const saveDailyTransaction = async(req,res)=>{
-  console.log("fghjjg>>",req.body.data);
+  console.log("body>>",req.body.data);
   try{
     const formData = req.body.data;
     formData.userName = req.session.username;
