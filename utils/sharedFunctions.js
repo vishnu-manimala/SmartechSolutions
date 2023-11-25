@@ -49,6 +49,47 @@
     let responseData = await fetch(url,options)
      return responseData.json();
 }
+const fetchAdvanceData = async(username) =>{
+  console.log("in fetchGoogleUserData",username);
+  const data = {
+  header : "username,_CurrentAdvance",
+  URL : "https://docs.google.com/spreadsheets/d/1iJZYu2wD0x5Td68GPBfpjYwPwIWUAG8FPWPQLLXIAHg/edit",
+  wsID :314400978,
+  keyheader : "username",
+  keyvalue : username,
+  };
+
+
+  const url =  "https://script.google.com/macros/s/AKfycbz_2mzARbhXhI-MEKJaKw2NGKRdaEJtkqzsAKyHJxYuoORR6ZTv4-bz0dnJ6axoebj4/exec";
+  const options =  {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+  let responseData = await fetch(url,options)
+  console.log("response>>",responseData)
+   return responseData.json();
+}
+// const fetchAdvance = async()=>{
+//   const data = {
+ 
+//     URL : "https://docs.google.com/spreadsheets/d/1iJZYu2wD0x5Td68GPBfpjYwPwIWUAG8FPWPQLLXIAHg/edit",
+//     wsID :314400978
+//     };
+  
+//     const url =  "https://script.google.com/macros/s/AKfycbx3dpGbLYbbFJEDDUFPsdyNmTSGlZ8dFYpBFHKUpRen_XPWMdSz0u35q7TFnu9immiZPw/exec";
+//     const options =  {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify(data),
+//     };
+//     let responseData = await fetch(url,options)
+//     //console.log("response",responseData.arr)
+//     //console.log("advance>>",responseData)
+//      return responseData.json();
+     
+// }
+
 
 const fetchGoogleBulkData = async(username) =>{
   
@@ -113,5 +154,6 @@ module.exports = {
     fetchGoogleBulkData,
     fetchAgreement,
     fetchGivenBy,
-    writeDailyTransaction
+    writeDailyTransaction,
+    fetchAdvanceData
 }

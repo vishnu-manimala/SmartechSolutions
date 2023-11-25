@@ -1,4 +1,11 @@
 <%- include('./layouts/headerUser.ejs') %>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+    <li class="breadcrumb-item"><a href="/accounts">Accounts</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Daily transaction</li>
+  </ol>
+</nav>
 <div class="modal" tabindex="-1" id="myModal">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -175,7 +182,7 @@ document.getElementById('transaction').addEventListener('submit', function(event
       formData.givenBy = event.target.givenBy.value;
       formData.receivedBy = event.target.receivedBy.value;
       formData.agreement = event.target.agreement.value;
-
+    console.log(formData)
       if(transactionType && transactionDate && taxBill && transactionAmount && givenBy && receivedBy && agreement){
         console.log("in true")
         const options = { method: 'POST',

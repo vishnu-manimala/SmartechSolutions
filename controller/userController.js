@@ -32,9 +32,12 @@ const userLoginPassword = async (req, res) => {
     const userData = await User.findOne({ username: req.body.username });
     if (!userData) {
       const gData = await fetchData.fetchGoogleUserData(req.body.username);
+    
+      // const advance = await fetchData.fetchAdvance();
       if (!gData) {
         return res.status(400).render("userLogin", { message: "No Data" });
       }
+      console.log("gData",gData)
       const parseData = JSON.parse(gData).data;
       if (parseData.username !== req.body.username) {
         return res
@@ -58,7 +61,7 @@ const userLoginPassword = async (req, res) => {
           .render("userLogin", { message: "Something went wrong" });
       }
       req.session.userId = savedEmp._id;
-      req.session.username = userData.username;
+      req.session.username = savedEmp.username;
       console.log("session",req.session.username)
       return res.status(200).redirect("/home");
     } else {
@@ -66,12 +69,14 @@ const userLoginPassword = async (req, res) => {
       if (req.body.username.match(userData.username)) {
         req.session.userId = userData._id;
         req.session.username = userData.username;
+        // const advance = await fetchData.fetchAdvance();
+        // console.log("advance",advance)
         console.log("session",req.session.username)
         return res.status(200).redirect("/home");
       }
     }
   } catch (err) {
-    console.log("userLoginPassword", err.message);
+    console.log("userLoginPassword", err);
     return res
       .status(500)
       .render("userLogin", { message: "Something went wrong!!" });
@@ -98,24 +103,23 @@ const loadHome = (req, res) => {
 
 const loadBulk = async (req, res) => {
   const bulkData = await fetchData.fetchGoogleBulkData(req.body.username);
+  const fetchAdvance = await fetchData.fetchAdvanceData(req.session.username);
+  const advance = JSON.parse(fetchAdvance).data;
+  console.log("advance",advance)
   data = JSON.parse(bulkData).arr;
-  // console.log("responded", data);
+  //console.log("responded", data);
   let transactiondata = [];
   for (const rowKey in data) {
     let details={};
-    //console.log("rowKey", data[rowKey]);
+   
     if (data.hasOwnProperty(rowKey)) {
       const rowData = data[rowKey];
-      //console.log("responded", rowData);
+    
       if (
          rowData.GivenBy === req.session.username ||
         rowData.ReceivedBy === req.session.username
       ) {
        console.log("in if", rowData.GivenBy,req.session.username,rowData.ReceivedBy )
-      //  console.log(
-      //   rowData.GivenBy === req.session.username ||
-      //   rowData.ReceivedBy === req.session.username
-      // )
         const givenByReceivedBy = rowData["GivenBy,ReceivedBy"];
         const givenBy = rowData.GivenBy;
         const date = rowData.Date;
@@ -134,14 +138,16 @@ const loadBulk = async (req, res) => {
       }
     }
     if(Object.keys(details).length !== 0){
-      //console.log("indetails")
       transactiondata.push(details);
     }
     
   }
-  console.log("transactiondata",transactiondata)
-  res.status(200).render("latestTransactions", {transactionData:transactiondata});
+  // console.log("transactiondata",transactiondata)
+  console.log("advance",advance)
+  res.status(200).render("latestTransactions", {transactionData:transactiondata,advance:advance});
 };
+
+
 
 const loadDailyTransaction = async(req,res) =>{
   console.log("responded");

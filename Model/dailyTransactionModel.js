@@ -13,12 +13,12 @@ const transactionSchema = new mongoose.Schema({
     },
     contactNumberPersonal:{
         type:String,
-        unique:true
+     
     },
     givenBy:{
         type:String,
         required: true,
-        unique:true
+        
     },
     receivedBy:{
         type: String,

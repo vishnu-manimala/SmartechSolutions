@@ -8,20 +8,19 @@ const userSchema = new mongoose.Schema({
     },
     username:{
         type: String,
-        required : true
+    
     },
     contactNumberPersonal:{
         type:String,
-        unique:true
+        
     },
     contactNumberOfficial:{
         type:String,
-        required: true,
-        unique:true
+       
     },
     password:{
         type: String,
-        required: true
+        
     },
     isBlocked: {
         type: Boolean,

@@ -1,9 +1,20 @@
 <%- include('./layouts/headerUser.ejs') %>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+    <li class="breadcrumb-item"><a href="/accounts">Accounts</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Latest transaction</li>
+  </ol>
+</nav>
   <div class="container-fluid mt-lg-2">
     <div class="row justify-content-center m-1 mb-3">
       <div class="col-md-12">
         <div class="mt-4">
           <h4 class="text-center "> LATEST TRANSACTIONS</h4>
+          <div class="container  d-flex justify-content-between  ">
+            <h5 class="ps-2">Hii, <%= advance.username %> </h5>
+            <span>Current Advance :<b> <%= advance._CurrentAdvance %></b></span>
+          </div>
           <div class="container mt-4">
             <% if(transactionData.length>0){ %>
             <table class="table table-responsive m-2 ">
