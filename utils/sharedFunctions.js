@@ -3,8 +3,8 @@
   var currentDate = new Date();
   const data = {
     header: "TimseStamp,Date,IN/OUT,Given By,Received By,Amount,Remarks,AgreementId- AgreementName,TAX,emailid",
-    URL: "https://docs.google.com/spreadsheets/d/1et_HFj6JfkYDW4MXK1JARjf_lfZp62r-JXvdNcF_J6s/",
-    "wsID":1014547245,
+    URL: "https://docs.google.com/spreadsheets/d/1rDZhRcADr4xoAEYfar9pxvav7HoBhr64PHDSA0b7-yg/edit",
+    "wsID":1496025112,
     //SheetName  : "INOUT_TRANSACTIONS",
     "TimseStamp": currentDate,
     "Date": transactionData.transactionDate,

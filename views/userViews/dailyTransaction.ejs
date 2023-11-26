@@ -37,7 +37,7 @@
                     <div class="col-md-6">
                       <label for="transactionType" class="form-label">Transaction IN/OUT :</label>
                       <select class="form-select" name="transactionType" aria-label="Default select example"
-                        id="transactionType" required onchange="isType('transactionType')">
+                        id="transactionType" required onchange="loadDataType('transactionType')">
                         <option value="" selected>Select transaction type</option>
                         <option value="IN">IN</option>
                         <option value="OUT">OUT</option>
@@ -52,8 +52,8 @@
                     <div class="col-md-6">
                       <label for="taxBill" class="form-label">Tax bill? :</label>
                       <select class="form-select" name="taxBill" aria-label="Default select example" id="taxBill"
-                        required onchange="isType('taxBill')">
-                        <option selected>Tax bill?</option>
+                         onchange="isType('taxBill')" required>
+                        <option value="" selected>Tax bill?</option>
                         <option value="YES">YES</option>
                         <option value="NO">NO</option>
                       </select>
@@ -141,8 +141,20 @@
       datalist.appendChild(option);
     });
   }
-
 function isType(id){
+  const type = document.getElementById(id);
+  const err = id+"err";
+  console.log(type.value,id);
+  if(!type.value){
+    document.getElementById(err).innerHTML = 'This field required';
+    type.style.borderColor = 'red';
+  }else{
+    document.getElementById(err).innerHTML = '';
+    type.style.borderColor = 'green';
+  }
+}
+
+function loadDataType(id){
   const type = document.getElementById(id);
   const err = id+"err";
   console.log(type.value,id);
@@ -183,7 +195,8 @@ document.getElementById('transaction').addEventListener('submit', function(event
       formData.receivedBy = event.target.receivedBy.value;
       formData.agreement = event.target.agreement.value;
     console.log(formData)
-      if(transactionType && transactionDate && taxBill && transactionAmount && givenBy && receivedBy && agreement){
+    console.log("form",formData.taxBill);
+      if(formData.transactionType && formData.transactionDate && formData.taxBill && formData.transactionAmount && formData.givenBy && formData.receivedBy && formData.agreement){
         console.log("in true")
         const options = { method: 'POST',
         headers: {
