@@ -114,12 +114,12 @@
  document.addEventListener('DOMContentLoaded',function() {
   const options ={}
         username = '<%= username %>';
-        console.log("username",username)
+        // console.log("username",username)
         const url = '/formDatas';
         fetch('/formDatas')
         .then(response=>response.json())
         .then(responseData=>{
-          console.log(responseData)
+          // console.log(responseData)
           
           populateDatalist(responseData.data.givenBy.slice(1),'givenByoptions')
           populateDatalist(responseData.data.givenBy.slice(1),'receivedByoptions')
@@ -128,7 +128,7 @@
  })
     
  function populateDatalist(optionsArray,id) {
-  console.log(id,optionsArray);
+  // console.log(id,optionsArray);
     const datalist = document.getElementById(id);
 
     // Clear existing options
@@ -144,7 +144,7 @@
 function isType(id){
   const type = document.getElementById(id);
   const err = id+"err";
-  console.log(type.value,id);
+  // console.log(type.value,id);
   if(!type.value){
     document.getElementById(err).innerHTML = 'This field required';
     type.style.borderColor = 'red';
@@ -157,7 +157,7 @@ function isType(id){
 function loadDataType(id){
   const type = document.getElementById(id);
   const err = id+"err";
-  console.log(type.value,id);
+  // console.log(type.value,id);
   if(!type.value){
     document.getElementById(err).innerHTML = 'Transaction type required';
     type.style.borderColor = 'red';
@@ -184,7 +184,7 @@ function loadDataType(id){
 
 document.getElementById('transaction').addEventListener('submit', function(event) {
       event.preventDefault(); // Prevents the form from submitting in the traditional way
-      console.log('Name:', event.target.transactionType);
+      // console.log('Name:', event.target.transactionType);
       let formData = {};
       formData.transactionType = event.target.transactionType.value;
       formData.transactionDate = event.target.transactionDate.value
@@ -194,22 +194,22 @@ document.getElementById('transaction').addEventListener('submit', function(event
       formData.givenBy = event.target.givenBy.value;
       formData.receivedBy = event.target.receivedBy.value;
       formData.agreement = event.target.agreement.value;
-    console.log(formData)
-    console.log("form",formData.taxBill);
+    // console.log(formData)
+    // console.log("form",formData.taxBill);
       if(formData.transactionType && formData.transactionDate && formData.taxBill && formData.transactionAmount && formData.givenBy && formData.receivedBy && formData.agreement){
-        console.log("in true")
+        // console.log("in true")
         const options = { method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ data: formData })}
 
-        console.log("options",options)
+        // console.log("options",options)
         const url = '/daily.transaction';
         fetch(url,options)
         .then(response => response.json())
         .then(data => {
-          console.log("fetch",data);
+          // console.log("fetch",data);
           if(data === "success"){
             
             window.location.href = '/bulk';
@@ -236,7 +236,7 @@ document.getElementById('transaction').addEventListener('submit', function(event
           }
         })
         .catch(error => {
-          console.error('Error:', error);
+          // console.error('Error:', error);
         });
       }else{
         document.getElementById('err').innerHTML = "All fields required!"
