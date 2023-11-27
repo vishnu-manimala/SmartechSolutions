@@ -209,7 +209,7 @@ document.getElementById('transaction').addEventListener('submit', function(event
         fetch(url,options)
         .then(response => response.json())
         .then(data => {
-          // console.log("fetch",data);
+         console.log("fetch",data);
           if(data === "success"){
             
             window.location.href = '/bulk';

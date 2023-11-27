@@ -209,10 +209,14 @@ const saveDailyTransaction = async(req,res)=>{
     console.log("req.session.username",req.session.username)
     const writeResponse = await fetchData.writeDailyTransaction(req.body.data);
     console.log(writeResponse);
+    if(writeResponse.status !== "success"){
+     return res.json("Error");
+    }
+    return res.json("success");
   }catch(err){
     console.log(err);
   }
-  res.json("success");
+  
 }
 
 const getAccounts = async(req,res)=>{

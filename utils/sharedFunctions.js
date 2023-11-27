@@ -4,7 +4,7 @@
   const data = {
     header: "TimseStamp,Date,IN/OUT,Given By,Received By,Amount,Remarks,AgreementId- AgreementName,TAX,emailid",
     URL: "https://docs.google.com/spreadsheets/d/1rDZhRcADr4xoAEYfar9pxvav7HoBhr64PHDSA0b7-yg/edit",
-    "wsID":1496025112,
+    "wsID":1014547245,
     //SheetName  : "INOUT_TRANSACTIONS",
     "TimseStamp": currentDate,
     "Date": transactionData.transactionDate,
@@ -47,6 +47,7 @@
       body: JSON.stringify(data),
     };
     let responseData = await fetch(url,options)
+    console.log("responseData",responseData)
      return responseData.json();
 }
 const fetchAdvanceData = async(username) =>{
