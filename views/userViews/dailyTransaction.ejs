@@ -1,11 +1,13 @@
 <%- include('./layouts/headerUser.ejs') %>
-<nav aria-label="breadcrumb">
+<nav aria-label="breadcrumb" >
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/home">Home</a></li>
     <li class="breadcrumb-item"><a href="/accounts">Accounts</a></li>
     <li class="breadcrumb-item active" aria-current="page">Daily transaction</li>
   </ol>
+ 
 </nav>
+<div class="loader h-100 " id="loadingSpinner" style="display: none;">Loading...</div>
 <div class="modal" tabindex="-1" id="myModal">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -23,7 +25,7 @@
     </div>
   </div>
 </div>
-  <div class="container-fluid mt-lg-2">
+  <div class="container-fluid mt-lg-2" id="mainContent">
     <div class="row justify-content-center m-1 mb-3">
       <div class="col-md-12">
         <div class="mt-2">
@@ -99,6 +101,7 @@
                     </div>
                     <span id="err" class="text-danger  "></span>
                   </form>
+                  <p>Click here to see your <a href="/bulk" class="pe-5 align-ce ">Latest transaction</a></p>
                 </div>
               </div>
               </div>
@@ -184,7 +187,12 @@ function loadDataType(id){
 
 document.getElementById('transaction').addEventListener('submit', function(event) {
       event.preventDefault(); // Prevents the form from submitting in the traditional way
-      // console.log('Name:', event.target.transactionType);
+       console.log('Name:');
+      const loadingSpinner = document.getElementById('loadingSpinner');
+      const mainContent = document.getElementById('mainContent');
+      loadingSpinner.style.display = 'block';
+      mainContent.style.display = 'none';
+      
       let formData = {};
       formData.transactionType = event.target.transactionType.value;
       formData.transactionDate = event.target.transactionDate.value
@@ -210,9 +218,9 @@ document.getElementById('transaction').addEventListener('submit', function(event
         .then(response => response.json())
         .then(data => {
          console.log("fetch",data);
-          if(data === "success"){
-            
-            window.location.href = '/bulk';
+         loadingSpinner.style.display = 'none'
+         mainContent.style.display = 'block ';
+          if(data === "success"){ 
             event.target.transactionType.value = "";
             event.target.transactionDate.value = "";
             event.target.taxBill.value = "";
