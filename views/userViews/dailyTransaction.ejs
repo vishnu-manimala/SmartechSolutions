@@ -48,7 +48,7 @@
                     </div>
                     <div class="col-md-6">
                       <label for="transactionDate" class="form-label">Transaction Date</label>
-                      <input type="date" name="transactionDate" class="form-control" id="transactionDate" required onchange="isType('transactionDate')">
+                      <input type="date" id="dateInput" name="transactionDate" class="form-control" id="transactionDate" required onchange="isType('transactionDate')">
                       <span id="transactionDateerr" class="text-danger  "></span>
                     </div>
                     <div class="col-md-6">
@@ -97,7 +97,7 @@
                     </div>
                     <span id="errMessage" class="text-danger "></span>
                     <div class="col-12 text-center ">
-                      <button type="submit" class="btn btn-primary">Submit</button>
+                      <button type="submit"  id="submit" class="btn btn-primary">Submit</button>
                     </div>
                     <span id="err" class="text-danger  "></span>
                   </form>
@@ -145,6 +145,7 @@
     });
   }
 function isType(id){
+  restrictDate();
   const type = document.getElementById(id);
   const err = id+"err";
   // console.log(type.value,id);
@@ -157,6 +158,29 @@ function isType(id){
   }
 }
 
+function restrictDate() {
+      var inputDate = document.getElementById('dateInput').value;
+      var currentDate = new Date().toISOString().split('T')[0]; // Get current date in "yyyy-mm-dd" format
+
+      // Set the number of days to restrict
+      var numberOfDays = 10; // Change this value to the desired number of days
+
+      var minDate = new Date();
+      minDate.setDate(minDate.getDate() - numberOfDays);
+
+      var maxDate = new Date();
+      maxDate.setDate(maxDate.getDate());
+
+      if (inputDate < minDate.toISOString().split('T')[0] || inputDate > maxDate.toISOString().split('T')[0]) {
+        document.getElementById('transactionDateerr').innerHTML = 'Please select a date within the allowed range.';
+        document.getElementById('dateInput').value = currentDate;
+        document.getElementById('submit').disabled =true;
+        
+      }else{
+        document.getElementById('transactionDateerr').innerHTML = '';
+        document.getElementById('submit').disabled =false;
+      }
+    }
 function loadDataType(id){
   const type = document.getElementById(id);
   const err = id+"err";
@@ -187,7 +211,6 @@ function loadDataType(id){
 
 document.getElementById('transaction').addEventListener('submit', function(event) {
       event.preventDefault(); // Prevents the form from submitting in the traditional way
-       console.log('Name:');
       const loadingSpinner = document.getElementById('loadingSpinner');
       const mainContent = document.getElementById('mainContent');
       loadingSpinner.style.display = 'block';
@@ -202,22 +225,21 @@ document.getElementById('transaction').addEventListener('submit', function(event
       formData.givenBy = event.target.givenBy.value;
       formData.receivedBy = event.target.receivedBy.value;
       formData.agreement = event.target.agreement.value;
-    // console.log(formData)
-    // console.log("form",formData.taxBill);
+  
       if(formData.transactionType && formData.transactionDate && formData.taxBill && formData.transactionAmount && formData.givenBy && formData.receivedBy && formData.agreement){
-        // console.log("in true")
+      
         const options = { method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ data: formData })}
 
-        // console.log("options",options)
+        
         const url = '/daily.transaction';
         fetch(url,options)
         .then(response => response.json())
         .then(data => {
-         console.log("fetch",data);
+        
          loadingSpinner.style.display = 'none'
          mainContent.style.display = 'block ';
           if(data === "success"){ 
@@ -244,7 +266,15 @@ document.getElementById('transaction').addEventListener('submit', function(event
           }
         })
         .catch(error => {
-          // console.error('Error:', error);
+          event.target.transactionType.value = "";
+            event.target.transactionDate.value = "";
+            event.target.taxBill.value = "";
+            event.target.transactionAmount.value = "";
+            event.target.remarks.value = "";
+            event.target.givenBy.value = "";
+            event.target.receivedBy.value = "";
+            event.target.agreement.value = "";
+            showModal("Something went wrong","Error!");
         });
       }else{
         document.getElementById('err').innerHTML = "All fields required!"
