@@ -170,7 +170,7 @@
             restrictDate();
             const type = document.getElementById(id);
             const err = id + "err";
-            const dataArray = (id === "givenBy") ? givenBy : agreementData;
+            const dataArray = (id === "agreement" ) ? agreementData  :givenBy ;
             // console.log(type.value,id);
             if (!type.value) {
               document.getElementById(err).innerHTML = 'This field required';

@@ -193,7 +193,7 @@ const fetchDatas = async(req,res)=>{
         givenByData.push(rowData.FULLSTACK);
       }
     }
-    console.log("given by", givenByData)
+    console.log("given by", agreementData)
     res.status(200).json({status:"Success",message:"Data fetched",data:{agreement:agreementData,givenBy:givenByData}})
   }catch(err){
     console.log(error);
