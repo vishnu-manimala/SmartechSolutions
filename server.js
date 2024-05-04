@@ -37,7 +37,7 @@ app.use('/productImages', express.static(path.resolve(__dirname, 'productImages'
 app.get('/', (req, res)=>{
     res.status(200).send('404')
 })
-app.use('/', require('./router/userRoutes'));//for user  side requests
+//app.use('/', require('./router/userRoutes'));//for user  side requests
 
 app.get('*', (req, res)=>{
     res.status(404).render('404')
