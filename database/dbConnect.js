@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 module.exports = async(req, res)=>{
     try{
-        await mongoose.connect('mongodb://0.0.0.0:27017/smartech',{
+        await mongoose.connect('mongodb+srv://chunu1991:02tSF8gKQqbVakNi@cluster0.z6sqxfa.mongodb.net/?retryWrites=true&w=majority',{
             useNewUrlParser: true,
             useUnifiedTopology: true,
         }).then(()=>{
